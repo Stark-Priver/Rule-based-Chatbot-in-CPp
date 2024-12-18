@@ -1,9 +1,7 @@
-//
-// Created by priver on 12/18/24.
-//
 #include "chatbot.h"
 #include "utilities.h"
 #include "system_controls.h"
+#include "advanced_math.h"
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -24,15 +22,33 @@ void Chatbot::startChat() {
             break;
         }
 
-        if (userInput.find("calculate") == 0) {
+        // Handle simple calculations (e.g., basic arithmetic)
+        if (userInput.find("calculate") == 0 && userInput.find("quadratic") == string::npos) {
             try {
-                string expression = userInput.substr(10);
-                double result = calculate(expression);
+                string expression = userInput.substr(10);  // Remove "calculate " from the input
+                double result = calculate(expression);  // Use the 'calculate' function from utilities.cpp
                 cout << "Chatbot: The result is " << result << endl;
             } catch (const exception& e) {
                 cout << "Chatbot: Error in calculation: " << e.what() << endl;
             }
-        } else if (userInput == "shutdown") {
+        }
+        // Handle quadratic equation queries like "calculate ax^2 + bx + c = 0"
+        else if (userInput.find("calculate") != string::npos && userInput.find("quadratic") != string::npos) {
+            double a, b, c; // Variables to hold the coefficients of the quadratic equation
+
+            if (parseQuadraticEquation(userInput, a, b, c)) {
+                cout << "Chatbot: Solving the equation " << a << "x^2 + " << b << "x + " << c << " = 0" << endl;
+                try {
+                    solveQuadratic(a, b, c);  // Call the quadratic solver from advanced_math.cpp
+                } catch (const exception& e) {
+                    cout << "Error: " << e.what() << endl;
+                }
+            } else {
+                cout << "Chatbot: I couldn't parse the equation. Please try again with the correct format." << endl;
+            }
+        }
+        // Handle other system control commands
+        else if (userInput == "shutdown") {
             cout << "Chatbot: Shutting down the computer...\n";
             shutdownComputer();
         } else if (userInput == "restart") {
@@ -47,7 +63,9 @@ void Chatbot::startChat() {
         } else if (userInput == "turn on hotspot") {
             cout << "Chatbot: Turning on the hotspot...\n";
             turnOnHotspot();
-        } else {
+        }
+        // Handle unrecognized input
+        else {
             cout << "Chatbot: I'm not sure I understand. Try asking something else!\n";
         }
     }

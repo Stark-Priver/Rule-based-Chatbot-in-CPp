@@ -12,6 +12,8 @@ set(SOURCES
         src/chatbot.cpp
         src/utilities.cpp
         src/system_controls.cpp
+        src/advanced_math.cpp
+
 )
 
 # Target executable
