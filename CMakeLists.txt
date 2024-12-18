@@ -13,6 +13,7 @@ set(SOURCES
         src/utilities.cpp
         src/system_controls.cpp
         src/advanced_math.cpp
+        src/speech_recognition.cpp
 
 )
 

@@ -1,0 +1,20 @@
+Quadratic Equation Solver
+Factorization of Polynomials
+Solving Systems of Linear Equations
+Derivatives and Differentiation
+Integrals and Integration
+Matrix Operations (Addition, Multiplication, Inversion, etc.)
+Trigonometric Functions (sin, cos, tan, etc.)
+Logarithms (Natural Log, Base 10, Custom Bases)
+Exponentiation (Powers, Roots, etc.)
+Complex Number Operations (Addition, Subtraction, etc.)
+Solving Higher-Degree Polynomials (Cubic, Quartic, etc.)
+Roots and Radicals (Square Roots, Cube Roots, nth Roots)
+Statistics Functions (Mean, Median, Mode, Standard Deviation, etc.)
+Probability and Combinatorics (Permutations, Combinations, etc.)
+Solving Nonlinear Equations (Exponential, Logarithmic, Trigonometric)
+Sequences and Series (Arithmetic, Geometric, etc.)
+Graphing Functions (Plotting Parabolas, Sine Waves, etc.)
+Optimization (Finding Maximum/Minimum Values of Functions)
+Polar and Parametric Equations
+Numerical Methods (Root-Finding, Numerical Integration, Differential Equations)

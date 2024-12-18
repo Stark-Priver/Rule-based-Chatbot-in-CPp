@@ -1,0 +1,13 @@
+Basic Arithmetic Calculation (e.g., addition, subtraction, multiplication, division)
+Trigonometric Functions (e.g., sin, cos, tan)
+Logarithmic Functions (e.g., natural log, base 10 log)
+Square Root Function (sqrt)
+Quadratic Equation Solver (ax^2 + bx + c = 0)
+Handling of User Input (e.g., parsing input for calculations and equations)
+Wi-Fi Control (turning Wi-Fi on and off)
+Hotspot Control (turning the hotspot on)
+Shutdown and Restart Computer (system control commands)
+Speech Recognition
+
+
+//TODO --> Complete the Speech recognition using vost
