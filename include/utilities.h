@@ -8,6 +8,6 @@
 #include <string>
 
 // Function to perform basic arithmetic calculations
-double calculate(const std::string& expression);
+double calculate(const std::string& raw_expression);
 
 #endif //UTILITIES_H
