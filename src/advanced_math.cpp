@@ -2,7 +2,7 @@
 // Created by priver on 12/18/24.
 //
 // advanced_math.cpp
-
+//TODO  to fix some bugs i handle the bugs in quadratic equation
 #include <iostream>
 #include <sstream>
 #include <regex>
