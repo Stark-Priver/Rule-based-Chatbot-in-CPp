@@ -1,3 +1,0 @@
-/home/priver/Studies/Rule based Chatbot in Cpp/cmake-build-debug/CMakeFiles/Rule_based_Chatbot_in_Cpp.dir
-/home/priver/Studies/Rule based Chatbot in Cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/priver/Studies/Rule based Chatbot in Cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
