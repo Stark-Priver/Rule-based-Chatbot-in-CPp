@@ -10,14 +10,14 @@
 #include <vosk.h>
 
 void listenToVoiceInput(std::string& recognizedText) {
-    // Initialize Vosk model
-    std::string model_path = "/path/to/vosk-model-small-en-us-0.15";
+    // Initializing  Vosk model
+    std::string model_path = "//";
     vosk::Model model(model_path);
 
     // Create recognizer for audio stream (16000 Hz sample rate)
     std::shared_ptr<vosk::Recognizer> recognizer = std::make_shared<vosk::Recognizer>(model, 16000.0);
 
-    // Open the microphone input (adjust path based on your system)
+    // Open the microphone input  for linux based os
     std::ifstream audio_stream("/dev/audio", std::ios::binary);
     if (!audio_stream) {
         std::cerr << "Error opening audio stream\n";
@@ -27,7 +27,7 @@ void listenToVoiceInput(std::string& recognizedText) {
     char buffer[4000];
     std::string result_text;
 
-    // Process audio input and convert it to text
+    // Processing the audio input and converting it to text
     while (audio_stream.read(buffer, sizeof(buffer))) {
         if (recognizer->AcceptWaveform(buffer, sizeof(buffer))) {
             std::string result = recognizer->Result();
@@ -39,5 +39,5 @@ void listenToVoiceInput(std::string& recognizedText) {
     // Final result after speech input ends
     std::string final_result = recognizer->FinalResult();
     std::cout << "Final recognized text: " << final_result << std::endl;
-    recognizedText = final_result;  // Return the recognized text to the caller
+    recognizedText = final_result;  // Returning the recognized text to the caller
 }
