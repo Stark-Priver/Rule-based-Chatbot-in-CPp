@@ -4,7 +4,7 @@
 #include "system_controls.h"
 #include <cstdlib>
 #include <iostream>
-
+// the function to shutdown the computer
 void shutdownComputer() {
 #if defined(_WIN32) || defined(_WIN64)
     system("shutdown /s /t 0");
@@ -13,6 +13,7 @@ void shutdownComputer() {
 #endif
 }
 
+// Function to Restart  the Computer
 void restartComputer() {
 #if defined(_WIN32) || defined(_WIN64)
     system("shutdown /r /t 0");
@@ -20,7 +21,7 @@ void restartComputer() {
     system("reboot");
 #endif
 }
-
+//Function to Turn on the Wifi
 void toggleWiFi(bool enable) {
 #if defined(_WIN32) || defined(_WIN64)
     if (enable) {
@@ -36,7 +37,7 @@ void toggleWiFi(bool enable) {
     }
 #endif
 }
-
+//Function to turn on the Wifi
 void turnOnHotspot() {
 #if defined(_WIN32) || defined(_WIN64)
     system("netsh wlan start hostednetwork");
