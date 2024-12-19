@@ -63,8 +63,11 @@ void Chatbot::startChat() {
         } else if (userInput == "turn on hotspot") {
             cout << "Chatbot: Turning on the hotspot...\n";
             turnOnHotspot();
+        }else if (userInput == "turn on bluetooth") {
+            cout << "Chatbot: Turning on the bluetooth...\n";
+            turnOnBluetooth();
         }
-        // Handle unrecognized input
+        // Needed to handle the unrecognized command
         else {
             cout << "Chatbot: I'm not sure I understand. Try asking something else!\n";
         }

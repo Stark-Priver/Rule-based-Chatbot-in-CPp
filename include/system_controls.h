@@ -10,5 +10,5 @@ void shutdownComputer();
 void restartComputer();
 void toggleWiFi(bool enable);
 void turnOnHotspot();
-
+void turnOnBluetooth();
 #endif //SYSTEM_CONTROLS_H

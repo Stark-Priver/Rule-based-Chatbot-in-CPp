@@ -46,4 +46,11 @@ void turnOnHotspot() {
 #endif
 }
 
+void turnOnBluetooth() {
+#if defined(_WIN32) || defined(_WIN64)
+    system("netsh wlan start bluetooth");
+#else
+    system("systemctl start bluetooth");
+#endif
+}
 
