@@ -11,6 +11,8 @@
 void solveQuadratic(double a, double b, double c);
 bool parseQuadraticEquation(const std::string& equation, double& a, double& b, double& c);
 
+// Why we used the boolean
+
 #endif
 
 

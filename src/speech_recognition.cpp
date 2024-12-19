@@ -10,7 +10,7 @@
 #include <vosk.h>
 
 void listenToVoiceInput(std::string& recognizedText) {
-    // Initialize Vosk model (replace with the path to your model)
+    // Initialize Vosk model
     std::string model_path = "/path/to/vosk-model-small-en-us-0.15";
     vosk::Model model(model_path);
 
