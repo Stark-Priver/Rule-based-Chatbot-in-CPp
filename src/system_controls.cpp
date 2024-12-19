@@ -37,7 +37,7 @@ void toggleWiFi(bool enable) {
     }
 #endif
 }
-//Function to turn on the Wifi
+//Function to turn on the Hotsport with the SSID Myhotspot and Password MyPassord
 void turnOnHotspot() {
 #if defined(_WIN32) || defined(_WIN64)
     system("netsh wlan start hostednetwork");
@@ -45,4 +45,5 @@ void turnOnHotspot() {
     system("nmcli device wifi hotspot ifname wlan0 ssid MyHotspot password MyPassword");
 #endif
 }
+
 
