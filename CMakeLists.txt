@@ -36,10 +36,13 @@ else()
     message(FATAL_ERROR "PortAudio not found. Please install PortAudio and try again.")
 endif()
 
-if (VOSK_LIB AND VOSK_INCLUDE_DIR)
-    message(STATUS "Found Vosk")
-    include_directories(${VOSK_INCLUDE_DIR})
-    target_link_libraries(Rule_based_Chatbot_in_Cpp PRIVATE ${VOSK_LIB})
-else()
-    message(FATAL_ERROR "Vosk not found. Please install Vosk and try again.")
-endif()
+# Add the path to PocketSphinx headers
+include_directories(/usr/include/pocketsphinx/)
+include_directories(/usr/include/sphinxbase/)
+
+# Add the path to PocketSphinx and SphinxBase libraries
+link_directories(/usr/lib/x86_64-linux-gnu)
+
+# Link the PocketSphinx and SphinxBase libraries to your project
+target_link_libraries(Rule_based_Chatbot_in_Cpp PRIVATE pocketsphinx sphinxbase)
+
