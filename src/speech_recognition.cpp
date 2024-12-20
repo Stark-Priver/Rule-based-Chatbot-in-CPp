@@ -1,108 +1,73 @@
-//
-// Created by priver on 12/18/24.
-//
-// speech_recognition.cpp
-
 #include "speech_recognition.h"
-#include <vosk_api.h>
-#include <portaudio.h>
+#include <pocketsphinx.h>
 #include <iostream>
 #include <string>
 
-#define SAMPLE_RATE 16000
-#define FRAMES_PER_BUFFER 4000
-
 using namespace std;
 
-static VoskModel* model = nullptr;
-static VoskRecognizer* recognizer = nullptr;
-static PaStream* stream = nullptr;
+SpeechRecognition::SpeechRecognition() : recognizer(nullptr) {}
+
+SpeechRecognition::~SpeechRecognition() {
+    cleanup();
+}
 
 void SpeechRecognition::initialize() {
-    const char* modelPath = "vosk-model/vosk-model-small-en-us-0.15/";
+    const char* modelPath = "path/to/your/model/en-us";  // Replace with your model path
+    const char* dictPath = "path/to/your/model/cmudict-en-us.dict";  // Replace with your dictionary path
 
-    // Load Vosk model
-    model = vosk_model_new(modelPath);
-    if (!model) {
-        throw runtime_error("Failed to load Vosk model.");
+    // Initialize the PocketSphinx recognizer with necessary parameters
+    ps_decoder_t* ps = nullptr;
+    cmd_ln_t* config = cmd_ln_init(nullptr, ps_args(), TRUE,
+        "-hmm", modelPath,       // Set the acoustic model
+        "-dict", dictPath,       // Set the dictionary path
+        nullptr);
+
+    if (config == nullptr) {
+        throw runtime_error("Failed to create PocketSphinx config.");
     }
 
-    // Create recognizer with the given model
-    recognizer = vosk_recognizer_new(model, SAMPLE_RATE);
-    if (!recognizer) {
-        vosk_model_free(model);
-        throw runtime_error("Failed to create Vosk recognizer.");
+    // Create a PocketSphinx decoder with the configuration
+    ps = ps_init(config);
+    if (ps == nullptr) {
+        cmd_ln_free_r(config);
+        throw runtime_error("Failed to initialize PocketSphinx recognizer.");
     }
 
-    // Initialize PortAudio
-    PaError err = Pa_Initialize();
-    if (err != paNoError) {
-        cleanup();
-        throw runtime_error("PortAudio initialization failed: " + string(Pa_GetErrorText(err)));
-    }
-
-    // Open PortAudio default stream for microphone input
-    err = Pa_OpenDefaultStream(&stream, 1, 0, paInt16, SAMPLE_RATE, FRAMES_PER_BUFFER, nullptr, nullptr);
-    if (err != paNoError) {
-        cleanup();
-        throw runtime_error("PortAudio error: " + string(Pa_GetErrorText(err)));
-    }
-
-    cout << "Speech Recognition Initialized.\n";
+    // Store the recognizer instance
+    recognizer = ps;
+    cout << "Speech Recognition Initialized using PocketSphinx.\n";
 }
 
 void SpeechRecognition::startListening() {
-    if (!stream) {
-        throw runtime_error("Audio stream is not initialized.");
+    if (recognizer == nullptr) {
+        throw runtime_error("Recognizer is not initialized.");
     }
 
-    PaError err = Pa_StartStream(stream);
-    if (err != paNoError) {
-        throw runtime_error("PortAudio error: " + string(Pa_GetErrorText(err)));
+    // Open the microphone stream and start recognizing
+    // You'll need to use a microphone input to get live audio for recognition
+    // Example: Using PortAudio or other library to handle live audio capture
+
+    cout << "Listening... Say something...\n";
+    // Process live audio stream and recognize commands here...
+
+    // For now, we'll simulate a simple command (You should process real audio input here)
+    string result = "shutdown";  // For testing, replace with actual speech recognition result
+
+    // Recognize the command
+    if (!result.empty()) {
+        cout << "Recognized: " << result << endl;
     }
-
-    cout << "Listening... Say 'exit' to stop.\n";
-
-    short buffer[FRAMES_PER_BUFFER];
-    while (true) {
-        // Read audio from PortAudio stream
-        err = Pa_ReadStream(stream, buffer, FRAMES_PER_BUFFER);
-        if (err && err != paInputOverflowed) {
-            cerr << "PortAudio error: " << Pa_GetErrorText(err) << endl;
-            break;
-        }
-
-        // Process the audio and recognize speech using Vosk
-        if (vosk_recognizer_accept_waveform(recognizer, buffer, FRAMES_PER_BUFFER * sizeof(short))) {
-            string result = vosk_recognizer_result(recognizer);
-            cout << "Recognized: " << result << endl;
-
-            // Check if "exit" is detected in the result
-            if (result.find("exit") != string::npos) {
-                cout << "Stopping voice recognition.\n";
-                break;
-            }
-        }
-    }
-
-    Pa_StopStream(stream);  // Stop the stream after listening
 }
 
 void SpeechRecognition::cleanup() {
-    // Cleanup resources to prevent memory leaks
-    if (stream) {
-        Pa_CloseStream(stream);
-        stream = nullptr;
-    }
     if (recognizer) {
-        vosk_recognizer_free(recognizer);
+        ps_free((ps_decoder_t*)recognizer);
         recognizer = nullptr;
     }
-    if (model) {
-        vosk_model_free(model);
-        model = nullptr;
-    }
-    Pa_Terminate();  // Always terminate PortAudio
     cout << "Speech Recognition resources cleaned up.\n";
 }
 
+std::string SpeechRecognition::getRecognizedCommand() {
+    // This function will return the last recognized command
+    return "shutdown";  // Simulate recognized command (Replace with actual result)
+}

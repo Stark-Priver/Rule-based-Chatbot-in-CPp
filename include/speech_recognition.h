@@ -1,7 +1,4 @@
-//
-// Created by priver on 12/18/24.
-//
-
+// speech_recognition.h
 #ifndef SPEECH_RECOGNITION_H
 #define SPEECH_RECOGNITION_H
 
@@ -9,9 +6,19 @@
 
 class SpeechRecognition {
 public:
-    static void initialize();       // Initialize the speech recognition system
-    static void startListening();   // Start live speech recognition
-    static void cleanup();          // Clean up resources
+    SpeechRecognition();
+    ~SpeechRecognition();
+
+    void initialize();
+    void startListening();
+    void cleanup();
+
+    std::string getRecognizedCommand(); // This will return the recognized speech
+
+private:
+    void* model;
+    void* recognizer;
+    void* stream;
 };
 
-#endif // SPEECH_RECOGNITION_H
+#endif //SPEECH_RECOGNITION_H
