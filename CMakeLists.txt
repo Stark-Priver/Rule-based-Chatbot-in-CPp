@@ -41,7 +41,7 @@ include_directories(/usr/include/pocketsphinx/)
 include_directories(/usr/include/sphinxbase/)
 
 # Add the path to PocketSphinx and SphinxBase libraries
-link_directories(/usr/lib/x86_64-linux-gnu)
+link_directories(/usr/lib/)
 
 # Link the PocketSphinx and SphinxBase libraries to your project
 target_link_libraries(Rule_based_Chatbot_in_Cpp PRIVATE pocketsphinx sphinxbase)
