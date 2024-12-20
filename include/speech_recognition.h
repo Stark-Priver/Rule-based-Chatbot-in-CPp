@@ -7,7 +7,11 @@
 
 #include <string>
 
-// Function to initialize and process voice input
-void listenToVoiceInput(std::string& recognizedText);
+class SpeechRecognition {
+public:
+    static void initialize();       // Initialize the speech recognition system
+    static void startListening();   // Start live speech recognition
+    static void cleanup();          // Clean up resources
+};
 
-#endif //SPEECH_RECOGNITION_H
+#endif // SPEECH_RECOGNITION_H

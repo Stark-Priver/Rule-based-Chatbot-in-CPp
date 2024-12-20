@@ -14,8 +14,24 @@ set(SOURCES
         src/system_controls.cpp
         src/advanced_math.cpp
         src/speech_recognition.cpp
-
+        include/chatbot.h
+        include/speech_recognition.h
 )
 
-# Target executable
+# Target executable (This must be defined before linking libraries)
 add_executable(Rule_based_Chatbot_in_Cpp ${SOURCES})
+
+# Required Libraries
+# Manually specify PortAudio paths if not found automatically
+find_library(PORTAUDIO_LIB portaudio HINTS /usr/lib /usr/local/lib)
+find_path(PORTAUDIO_INCLUDE_DIR portaudio.h HINTS /usr/include /usr/local/include)
+
+# Check if PortAudio was found
+if (PORTAUDIO_LIB AND PORTAUDIO_INCLUDE_DIR)
+    message(STATUS "Found PortAudio")
+    include_directories(${PORTAUDIO_INCLUDE_DIR})
+    # Link the PortAudio library to the target executable
+    target_link_libraries(Rule_based_Chatbot_in_Cpp PRIVATE ${PORTAUDIO_LIB})
+else()
+    message(FATAL_ERROR "PortAudio not found. Please install PortAudio and try again.")
+endif()
