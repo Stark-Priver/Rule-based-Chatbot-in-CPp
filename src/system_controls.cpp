@@ -48,9 +48,15 @@ void turnOnHotspot() {
 
 void turnOnBluetooth() {
 #if defined(_WIN32) || defined(_WIN64)
-    system("netsh wlan start bluetooth");
+    // Windows specific Bluetooth turn-on command
+    std::cout << "Turning on Bluetooth on Windows..." << std::endl;
+    system("netsh wlan start bluetooth"); // Command to turn on Bluetooth
+#elif defined(__linux__)
+    // Linux (Kali and others) specific Bluetooth turn-on command
+    std::cout << "Turning on Bluetooth on Linux..." << std::endl;
+    system("systemctl start bluetooth"); // Command to start Bluetooth service
 #else
-    system("systemctl start bluetooth");
+    std::cerr << "Platform not supported for Bluetooth turning on." << std::endl;
 #endif
 }
 
