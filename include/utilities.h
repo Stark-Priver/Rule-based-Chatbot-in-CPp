@@ -6,7 +6,7 @@
 
 #include <string>
 
-// Function declarations
+// Function declarations to the project
 double calculate(const std::string& expression);
 double performOperation(double a, double b, char op);
 int precedence(char op);
