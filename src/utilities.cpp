@@ -105,7 +105,7 @@ double calculate(const std::string& expression) {
         }
     }
 
-    // Resolve remaining operations
+    // Resolve remaining operations in the project
     while (!operators.empty()) {
         double b = values.top(); values.pop();
         double a = values.top(); values.pop();
