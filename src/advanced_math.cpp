@@ -10,39 +10,43 @@
 #include <stdexcept>
 #include "advanced_math.h"
 
-// Function to parse a quadratic equation string and extract coefficients
-bool parseQuadraticEquation(const std::string& equation, double& a, double& b, double& c) {
-    // Update regex to handle signs, spaces, and decimal values
-    std::regex eq_pattern("([+-]?\\d*\\.?\\d+)x\\^2\\s*([+-]?\\d*\\.?\\d+)x\\s*([+-]?\\d*\\.?\\d+)\\s*=\\s*([+-]?\\d*\\.?\\d+)");
-    std::smatch match;
+using  namespace std;
 
-    if (std::regex_search(equation, match, eq_pattern) && match.size() == 5) {
-        a = std::stod(match[1].str());
-        b = std::stod(match[2].str());
-        c = std::stod(match[3].str()) - std::stod(match[4].str()); // Adjust for the right-hand side constant
+// Function to parse the equation string and extract coefficients
+bool parseQuadraticEquation(const string& equation, double& a, double& b, double& c) {
+    regex eq_pattern("([+-]?\\d*)X\\^2\\s*([+-]?\\d*)X\\s*([+-]?\\d+)\\s*=\\s*(-?\\d+)");
+    smatch match;
+
+    if (regex_search(equation, match, eq_pattern)) {
+        // Extract coefficients from the regex match groups
+        a = (match[1].str().empty() || match[1].str() == "+") ? 1 : (match[1].str() == "-") ? -1 : stoi(match[1].str());
+        b = (match[2].str().empty() || match[2].str() == "+") ? 1 : (match[2].str() == "-") ? -1 : stoi(match[2].str());
+        c = stoi(match[3].str()) - stoi(match[4].str());  // Move the right-hand side to the left-hand side
+
         return true;
     }
     return false;
 }
-
 // Function to solve a quadratic equation ax^2 + bx + c = 0 using the quadratic formula
-void solveQuadratic(double a, double b, double c) {
-    if (a == 0) {
-        throw std::invalid_argument("Not a quadratic equation. The coefficient 'a' cannot be zero.");
-    }
 
+void solveQuadratic(double a, double b, double c) {
     double discriminant = b * b - 4 * a * c;
 
     if (discriminant > 0) {
-        double x1 = (-b + std::sqrt(discriminant)) / (2 * a);
-        double x2 = (-b - std::sqrt(discriminant)) / (2 * a);
-        std::cout << "The equation has two real solutions: x1 = " << x1 << " and x2 = " << x2 << std::endl;
+        double root1 = (-b + sqrt(discriminant)) / (2 * a);
+        double root2 = (-b - sqrt(discriminant)) / (2 * a);
+        cout << "Roots are real and different." << endl;
+        cout << "Root 1 = " << root1 << endl;
+        cout << "Root 2 = " << root2 << endl;
     } else if (discriminant == 0) {
-        double x = -b / (2 * a);
-        std::cout << "The equation has one real solution: x = " << x << std::endl;
+        double root = -b / (2 * a);
+        cout << "Root is real and same." << endl;
+        cout << "Root = " << root << endl;
     } else {
         double realPart = -b / (2 * a);
-        double imaginaryPart = std::sqrt(-discriminant) / (2 * a);
-        std::cout << "The equation has two complex solutions: x1 = " << realPart << " + " << imaginaryPart << "i and x2 = " << realPart << " - " << imaginaryPart << "i" << std::endl;
+        double imaginaryPart = sqrt(-discriminant) / (2 * a);
+        cout << "Roots are complex and different." << endl;
+        cout << "Root 1 = " << realPart << " + " << imaginaryPart << "i" << endl;
+        cout << "Root 2 = " << realPart << " - " << imaginaryPart << "i" << endl;
     }
 }

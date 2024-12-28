@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I"/home/priver/Studies/Rule based Chatbot in Cpp/include" -I/usr/include/pocketsphinx -I/usr/include/sphinxbase
 
-CXX_FLAGS = -std=gnu++20
+CXX_FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
 
